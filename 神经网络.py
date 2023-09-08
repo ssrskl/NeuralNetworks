@@ -8,10 +8,13 @@ class neuralNetwork:
         self.hnodes = hiddennodes
         self.onodes = outputnodes
         self.lr = learningrate
-        # 创建第一层的链接权重矩阵
-        self.wih = (numpy.random.rand(self.hnodes, self.inodes) - 0.5)
-        # 创建第二层的链接权重矩阵
-        self.who = (numpy.random.rand(self.onodes, self.hnodes) - 0.5)
+        # # 创建第一层的链接权重矩阵
+        # self.wih = (numpy.random.rand(self.hnodes, self.inodes) - 0.5)
+        # # 创建第二层的链接权重矩阵
+        # self.who = (numpy.random.rand(self.onodes, self.hnodes) - 0.5)
+        self.wih = numpy.random.normal(0.0, pow(self.hnodes, -0.5), (self.hnodes, self.inodes))
+        self.who = numpy.random.normal(0.0, pow(self.onodes, -0.5), (self.onodes, self.hnodes))
+        # 配置激活函数
         self.activation_function = lambda x: scipy.special.expit(x)
         pass
 
@@ -61,7 +64,7 @@ learning_rate = 0.1
 n = neuralNetwork(input_nodes, hidden_nodes, output_nodes, learning_rate)
 # 导入训练数据
 # trainimg_data_file = open("data/mnist_train_100.csv", 'r')
-trainimg_data_file = open("data/mnist_train.csv", 'r')
+trainimg_data_file = open("data/mnist_train_100.csv", 'r')
 trainimg_data_list = trainimg_data_file.readlines()
 trainimg_data_file.close()
 # 对权重进行训练
